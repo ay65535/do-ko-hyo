@@ -17,8 +17,10 @@ ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.preview.app.github.dev,.app.git
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-# fix permission /usr/local/bundle
-RUN chown -R vscode:vscode /usr/local/bundle
+# make /usr/local/bundle/vendor directory (for bundle install path)
+# and fix permission /usr/local/bundle
+RUN mkdir -p /usr/local/bundle/vendor && \
+    chown -R vscode:vscode /usr/local/bundle
 
 # set user
 USER vscode
