@@ -7,11 +7,7 @@ services:
       dockerfile: .devcontainer/Dockerfile
 
     volumes:
-      - ../..:/workspaces:cached
+      - ../..:/work/space/s:cached
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-
-    environment:
-      GIT_DIR: ${REMOTE_GIT_DIR}
-      WORKSPACE_FOLDER_BASENAME: ${LOCAL_WORKSPACE_FOLDER_BASENAME}
