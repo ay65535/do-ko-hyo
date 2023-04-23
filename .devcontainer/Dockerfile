@@ -19,3 +19,9 @@ ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.preview.app.github.dev,.app.git
 
 # fix permission /usr/local/bundle
 RUN chown -R vscode:vscode /usr/local/bundle
+
+# set user
+USER vscode
+# set bundle path and install gems
+RUN bundle config set --local path /usr/local/bundle/vendor && \
+    bundle install

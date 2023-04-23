@@ -5,6 +5,10 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/work/space/s/${localWorkspaceFolderBasename}",
+	// mount separate .git directory to enable git operations in container
+	"mounts": [
+		"source=${LOCAL_GIT_DIR},target=/gitdir/${localWorkspaceFolderBasename}.git,type=bind,consistency=cached"
+	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {
@@ -30,12 +34,8 @@
 	// This can be used to network with other containers or the host.
 	"forwardPorts": [ 3000 ],
 
-	"mounts": [
-		"source=${LOCAL_GIT_DIR},target=/gitdir/${localWorkspaceFolderBasename}.git,type=bind,consistency=cached"
-	],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sleep 5 && bundle config set --local path /usr/local/bundle/vendor", // && bundle install"
+	// "postCreateCommand": "bundle install && rake db:setup",
 
 	// Configure tool-specific properties.
 	"customizations": {
