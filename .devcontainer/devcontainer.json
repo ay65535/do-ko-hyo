@@ -1,26 +1,97 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ruby-rails-postgres
 {
-	"name": "Ruby on Rails (Community)",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
+	"name": "${localWorkspaceFolderBasename}",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {
+	// 	"ghcr.io/devcontainers/features/node:1": {
+	// 		"version": "lts"
+	// 	},
+	// 	"ghcr.io/devcontainers/features/powershell:1": {
+	// 		"version": "latest"
+	// 	},
+	// 	"ghcr.io/devcontainers/features/ruby:1": {
+	// 		"version": "latest"
+	// 	},
+	// 	"ghcr.io/devcontainers-contrib/features/starship-homebrew:1": {
+	// 		"version": "latest"
+	// 	},
+	// 	"ghcr.io/lukewiwa/features/shellcheck:0": {
+	// 		"version": "stable"
+	// 	},
+	// 	"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
+	// }
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// This can be used to network with other containers or the host.
+	"forwardPorts": [ 3000 ],
+
+	"mounts": [
+		"source=${LOCAL_GIT_DIR},target=/gitdir/${localWorkspaceFolderBasename}.git,type=bind,consistency=cached"
+	],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "bundle install && rake db:setup",
 
 	// Configure tool-specific properties.
 	"customizations": {
-		// Configure properties specific to VS Code.
 		"vscode": {
-			// Add the IDs of extensions you want installed when the container is created.
+			"settings": {
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "bash",
+						"icon": "terminal-bash"
+					},
+					"pwsh": {
+						"path": "pwsh",
+						"icon": "terminal-powershell"
+					}
+				},
+				"terminal.integrated.defaultProfile.linux": "bash"
+			},
 			"extensions": [
-				"rebornix.Ruby"
+				"bung87.rails",
+				"castwide.solargraph",
+				"chouzz.vscode-better-align",
+				"christian-kohler.path-intellisense",
+				"codezombiech.gitignore",
+				"foxundermoon.shell-format",
+				"GitHub.copilot-labs",
+				"GitHub.copilot-nightly",
+				"groksrc.ruby",
+				"Hridoy.rails-snippets",
+				"IBM.output-colorizer",
+				"KoichiSasada.vscode-rdbg",
+				"miguel-savignano.ruby-symbols",
+				"MS-CEINTL.vscode-language-pack-ja",
+				"ms-vscode.powershell",
+				"ms-vscode.sublime-keybindings",
+				"Pendrica.chef",
+				"rebornix.ruby",
+				"rubyide.vscode-ruby",
+				"shardulm94.trailing-spaces",
+				"sleistner.vscode-fileutils",
+				"testdouble.vscode-standard-ruby",
+				"timonwong.shellcheck",
+				"tomoki1207.vscode-input-sequence",
+				"truman.autocomplate-shell",
+				"vayan.haml",
+				"vortizhe.simple-ruby-erb",
+				"wingrunr21.vscode-ruby"
 			]
 		}
 	},
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"remoteEnv": {
+		"http_proxy": "${localEnv:http_proxy}",
+		"https_proxy": "${localEnv:https_proxy}",
+		"no_proxy": "${localEnv:no_proxy}"
+	}
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "ruby --version",
-
-	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
