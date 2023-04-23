@@ -8,6 +8,14 @@ services:
 
     volumes:
       - ../..:/work/space/s:cached
+      # named volume for bundler cache
+      - type: volume
+        source: do-ko-hyo-bundle-cache
+        target: /usr/local/bundle/cache
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
+
+# named volume for bundler cache
+volumes:
+  do-ko-hyo-bundle-cache:

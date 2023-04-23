@@ -35,7 +35,7 @@
 	"forwardPorts": [ 3000 ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "bundle install && rake db:setup",
+	"postCreateCommand": "sleep 5 && bundle config set --local path /usr/local/bundle/cache && sudo chown -R vscode:vscode /usr/local/bundle/cache && bundle install",
 
 	// Configure tool-specific properties.
 	"customizations": {
